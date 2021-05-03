@@ -18,20 +18,35 @@ function RepoInfo({user, repository}) {
                     Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`
                 }
             })
-            const data = await response.json()
-            // data.updated_at = new Intl.DateTimeFormat('pt-BR').format(new Date(data.updated_at))
-            // console.log(data.organization?.avatar_url)
+            let data = await response.json()
+            data["languages"] = await fetchLanguages(data.languages_url)
+            data["abbr"] = data["full_name"].substr(0, 1)
             setRepo(data)
         }
         fetchRepositoryHandler()
     }, [user, repository])
 
+    async function fetchLanguages(url) {
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`
+            }
+        })
+        const data = await response.json()
+        return Object.keys(data).join(", ")
+    }
+
+    function setDate(dateTime) {
+        const newDate = new Date(dateTime).toLocaleString('pt-BR')
+        return newDate
+    }
 
     return (
         <tr>
             <td>
                 <a href={repo.html_url} target="_blank" rel="noreferrer">
-                    {repo.organization?.avatar_url ? <img src={repo.organization?.avatar_url} alt={repo.full_name} width="32" /> : <img src="https://via.placeholder.com/32x32" alt={repo.full_name} width="32" />}
+                    {repo.organization?.avatar_url ? <img src={repo.organization?.avatar_url} alt={repo.full_name} width="32" /> : <img src={`https://via.placeholder.com/32x32.png?text=${repo.abbr}`} alt={repo.full_name} width="32" />}
                 </a>
                 <a href={repo.html_url} target="_blank" rel="noreferrer">
                     {repo.full_name}
@@ -41,16 +56,16 @@ function RepoInfo({user, repository}) {
                 {repo.description}
             </td>
             <td>
-                {repo.language}
+                {repo.languages}
             </td>
             <td className="text-center">
                 {repo.stargazers_count}
             </td>
             <td className="text-center">
-                {repo.watchers_count}
+                {repo.subscribers_count}
             </td>
             <td className="text-center">
-                {repo.updated_at}
+                {setDate(repo.updated_at)}
             </td>
         </tr>
     )

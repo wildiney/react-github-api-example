@@ -8,7 +8,6 @@ function Repositories() {
         async function fetchRepositoriesHandler() {
             const response = await fetch(`https://potion-api.vercel.app/table?id=${process.env.REACT_APP_TABLE_ID}`)
             const data = await response.json()
-            console.log(data)
             const repositoryData = data.map((repoData) => {
                 return {
                     id: repoData.id,
@@ -16,7 +15,6 @@ function Repositories() {
                     repository: repoData.fields.Repository
                 }
             })
-            console.log(repositoryData)
             setRepositories(repositoryData)
         }
         fetchRepositoriesHandler()
@@ -30,7 +28,7 @@ function Repositories() {
                     <tr>
                         <th>Repository</th>
                         <th>Description</th>
-                        <th>Language</th>
+                        <th>Languages</th>
                         <th>Stars</th>
                         <th>Watch</th>
                         <th>Last update</th>
