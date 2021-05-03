@@ -6,8 +6,9 @@ function Repositories() {
 
     useEffect(() => {
         async function fetchRepositoriesHandler() {
-            const response = await fetch(`https://potion-api.vercel.app/table?id=${process.env.TABLE_ID}`)
+            const response = await fetch(`https://potion-api.vercel.app/table?id=${process.env.REACT_APP_TABLE_ID}`)
             const data = await response.json()
+            console.log(data)
             const repositoryData = data.map((repoData) => {
                 return {
                     id: repoData.id,
