@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import env from "react-dotenv";
 
 import "./RepoInfo.css"
 
@@ -16,7 +15,7 @@ function RepoInfo({user, repository}) {
             const response = await fetch(`https://api.github.com/repos/${user}/${repository}`, {
                 method: "GET",
                 headers: {
-                    Authorization: `token ${env.GITHUB_TOKEN}`
+                    Authorization: `token ${process.env.GITHUB_TOKEN}`
                 }
             })
             const data = await response.json()
