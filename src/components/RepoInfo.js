@@ -16,7 +16,7 @@ function RepoInfo({user, repository}) {
             const response = await fetch(`https://api.github.com/repos/${user}/${repository}`, {
                 method: "GET",
                 headers: {
-                    Authorization: `token ${process.env.GITHUB_TOKEN}`
+                    Authorization: `token ${env.GITHUB_TOKEN}`
                 }
             })
             const data = await response.json()
