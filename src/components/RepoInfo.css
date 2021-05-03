@@ -1,0 +1,26 @@
+table {
+  width: 100%;
+  border: 1px solid gray;
+  border-collapse: collapse;
+}
+td:nth-child(1) img {
+  vertical-align: middle;
+  margin-right: 10px;
+}
+td,
+th {
+  border: 1px solid gray;
+  padding: 0.5rem;
+  vertical-align: middle;
+}
+a:link,
+a:visited,
+a:active {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+.text-center {
+  text-align: center;
+}
